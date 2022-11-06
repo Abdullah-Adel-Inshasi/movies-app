@@ -1,0 +1,19 @@
+{
+  "whoWatching": "Who's watching?",
+  "manageProfiles": "Manage Profiles",
+  "navTabs": {
+    "home": "Home",
+    "series": "Series",
+    "films": "Films",
+    "latest": "Latest",
+    "myList": "My List",
+    "browseByLanguage": "Browse By Language"
+  },
+  "404": "OOPS NO SIGNAL",
+  "play": "Play",
+  "moreInfo": "More Info",
+  "genres": {
+    "+18": "+18"
+  },
+  "profilePictureAltText": "{{name}} profile picture"
+}
