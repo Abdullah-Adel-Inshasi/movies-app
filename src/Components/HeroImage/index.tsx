@@ -2,7 +2,6 @@ import React from "react";
 import InfoIcon from "../icons/info";
 import TriangleIcon from "../icons/triangle";
 import { useTranslation } from "next-i18next";
-import starWars from "~/public/images/movies-images/starwars.jpg";
 import Link from "next/link";
 const HeroImage = ({
   image,
@@ -19,11 +18,9 @@ const HeroImage = ({
 
   return (
     <div
-      className="h-[30vh] sm:h-[60vh] bg-center md:h-[80vh] w-full bg-cover  hover:duration-150 transition-opacity relative overflow-hidden bg-fixed"
+      className="h-[30vh] sm:h-[60vh] bg-center md:h-[80vh] bg-gradient-to-t to-rose-500 w-full bg-cover  hover:duration-150 transition-opacity relative overflow-hidden bg-fixed"
       style={{
-        backgroundImage: image
-          ? `url("https://image.tmdb.org/t/p/original${image}")`
-          : `${starWars}`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/original${image}")`,
       }}
     >
       <div className="z-auto absolute  bottom-10 ">

@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import Title from "./Title";
 import Image from "next/image";
 import PlayIcons from "~/src/Icons/PlayIcon";

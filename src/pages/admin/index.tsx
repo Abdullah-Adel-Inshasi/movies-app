@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { NextPageWithLayout } from "../_app";
 import Image from "next/image";
-import MoviePosterPlaceholder from "~/public/images/placeholders/film-poster.png";
 import { useContext } from "react";
 import { userContext } from "~/src/providers/UserProvider";
-import { useEffect } from "react";
 const Admin: NextPageWithLayout = () => {
   const { user, setUser } = useContext(userContext);
 
@@ -25,7 +23,7 @@ const Admin: NextPageWithLayout = () => {
             <p>Add an image</p>
             <div>
               <Image
-                src={image || MoviePosterPlaceholder}
+                src={image || ""}
                 alt=""
                 width={100}
                 objectFit="cover"
