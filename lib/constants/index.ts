@@ -1,4 +1,4 @@
-const genres: Record<number, string> = {
+const GENRES: Record<number, string> = {
   28: "Action",
   12: "Adventure",
   16: "Animation",
@@ -20,4 +20,6 @@ const genres: Record<number, string> = {
   37: "Western",
 };
 
-export { genres };
+const MINUTES_PER_HOUR = 60;
+
+export { GENRES, MINUTES_PER_HOUR };
