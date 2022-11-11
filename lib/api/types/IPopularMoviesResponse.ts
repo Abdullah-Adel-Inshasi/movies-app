@@ -1,4 +1,4 @@
-interface IMovie {
+export interface IMovie {
   genres: string[];
   poster_path: string | null;
   adult: boolean;
