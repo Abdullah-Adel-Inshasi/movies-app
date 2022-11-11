@@ -3,8 +3,7 @@ import Image from "next/image";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import MagnifyingGlass from "../icons/magnifying-glass";
-import NotificationsBell from "../icons/bell";
+import { MagnifyingGlass, NotificationsBell } from "@Icons";
 const Header: FC = () => {
   const { t } = useTranslation("common", { keyPrefix: "navTabs" });
   const [shouldShowOptions, setShouldShowOptions] = useState<boolean>(false);
@@ -40,7 +39,7 @@ const Header: FC = () => {
 
   return (
     <header
-      className={`z-10 fixed transition-all duration-500 ease-in-out  top-0 w-full flex px-12 pt-8 pb-4 bg-gradient-to-b from-headerBackground to-transparent justify-between sm:justify-start ${
+      className={`z-10 fixed transition-all duration-500 ease-in-out top-0 w-full flex px-12 pt-8 pb-4 bg-gradient-to-b from-headerBackground to-transparent justify-between sm:justify-start ${
         shouldHeaderBeBlack ? "bg-headerBackground" : ""
       }`}
     >

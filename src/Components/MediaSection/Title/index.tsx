@@ -2,12 +2,12 @@ import Link from "next/link";
 import React, { FC } from "react";
 
 const Title: FC<{ title: string }> = ({ title }) => {
-  const showMoreLikeThis = () => {
-    console.log("go to " + title);
-  };
+  const showMoreLikeThis = () => {};
   return (
-    <div className="inline-block ml-[3vw] mb-3">
-      <Link href={`/categories/${title.toLowerCase()}`}>
+    <div className="inline-block ml-[3vw]">
+      <Link
+        href={`/categories/${title.toLowerCase().trim().replaceAll(" ", "_")}`}
+      >
         <a>
           <button
             onClick={showMoreLikeThis}

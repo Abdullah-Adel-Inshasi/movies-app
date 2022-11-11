@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useContext, useEffect } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import LockIcon from "~/src/Icons/LockIcon";
+import { LockIcon } from "@Icons";
 import { useTranslation } from "next-i18next";
-import Link from "next/link";
 import { userContext } from "~/src/providers/UserProvider";
+
 const UserCard: FC<{
   image: string;
   name: string;

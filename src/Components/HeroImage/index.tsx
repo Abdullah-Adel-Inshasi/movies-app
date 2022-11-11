@@ -1,26 +1,22 @@
-import React from "react";
-import InfoIcon from "../icons/info";
-import TriangleIcon from "../icons/triangle";
+import React, { FC } from "react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
-const HeroImage = ({
-  image,
-  title,
-  description,
-  genres,
-}: {
+import { InfoIcon, PlayIcon } from "@Icons";
+import { getImageLink } from "~/lib/utils/helpers";
+
+const HeroImage: FC<{
   image: string | null;
   title: string;
   description: string;
   genres: string[];
-}) => {
+}> = ({ image, title, description, genres }) => {
   const { t } = useTranslation("common");
 
   return (
     <div
       className="h-[30vh] sm:h-[60vh] bg-center md:h-[80vh] bg-gradient-to-t to-rose-500 w-full bg-cover  hover:duration-150 transition-opacity relative overflow-hidden bg-fixed"
       style={{
-        backgroundImage: `url("https://image.tmdb.org/t/p/original${image}")`,
+        backgroundImage: `url(${getImageLink(image!)})`,
       }}
     >
       <div className="z-auto absolute  bottom-10 ">
@@ -32,7 +28,7 @@ const HeroImage = ({
         </h3>
         <div className="flex gap-4 relative left-10 ">
           <button className=" transition hover:duration-150 bg-white hover:bg-opacity-75  px-6 py-4 flex flex-row gap-1 rounded-md drop-shadow-[0_35px_35px_rgba(0,0,0,.5)] ">
-            <TriangleIcon />
+            <PlayIcon />
             <p>{t("play")}</p>
           </button>
           <Link href={`/movies/${title.replaceAll(" ", "_").toLowerCase()}`}>
