@@ -12,10 +12,9 @@ const updateGenres = () => {
         genres.add(...movie.genres);
       });
 
-      console.log(genres);
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 };
 
