@@ -6,7 +6,7 @@ const MovieInformation: FC<{
   vote_average: number;
   budget: number;
   setShowRatingPopUp: Dispatch<SetStateAction<boolean>>;
-}> = ({ vote_average, budget }) => {
+}> = ({ vote_average, budget, setShowRatingPopUp }) => {
   return (
     <div className="md:flex flex-row space-x-5 self-end hidden ">
       <div className="text-center space-y-2">
@@ -23,7 +23,10 @@ const MovieInformation: FC<{
       </div>
       <div className="text-center space-y-2 ">
         <p className="text-2xl">Your rating</p>
-        <button className="flex flex-row space-x-2 group mx-auto px-2 py-1 rounded bg-gray-500 bg-opacity-60 hover:bg-opacity-100 ">
+        <button
+          onClick={() => setShowRatingPopUp(true)}
+          className="flex flex-row space-x-2 group mx-auto px-2 py-1 rounded bg-gray-500 bg-opacity-60 hover:bg-opacity-100 "
+        >
           <StarIcon className="group-hover:fill-404-yellow" />
           <p>RATE</p>
         </button>

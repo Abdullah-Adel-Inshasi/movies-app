@@ -2,7 +2,11 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getMovieDetails, getMovieVideos } from "@API/requests";
+import {
+  getMovieDetails,
+  getMovieVideos,
+  rateMovie as rateMovieRequest,
+} from "@API/requests";
 import { IMovieDetails } from "@API/types";
 import {
   MovieInformation,
@@ -11,6 +15,7 @@ import {
   GenreChips,
   BookmarkButton,
 } from "@Components";
+import RateStars from "~/src/Components/RateStars";
 
 const MovieDetails: NextPage<
   IMovieDetails & { youtubeKey: string | undefined }
@@ -30,10 +35,18 @@ const MovieDetails: NextPage<
   production_companies,
 }) => {
   const [showRatingPopUp, setShowRatingPopUp] = useState<boolean>(false);
+  const rateMovie = async (rate: number) => {
+    const x = rateMovieRequest({ movieId: id.toString(), rate });
+    x.catch(console.error)
+      .finally(() => setShowRatingPopUp(false))
+      .then(() => alert(`you rated ${title} ${rate}/10`));
+  };
   return (
     <>
       {showRatingPopUp && (
-        <div className="fixed h-screen w-screen bg-white opacity-75 flex justify-center items-center" />
+        <div className="fixed h-screen w-screen bg-black opacity-75 flex justify-center items-center z-10 ">
+          <RateStars rateMovie={rateMovie} />
+        </div>
       )}
       <div className=" bg-background flex flex-col items-center">
         <div className="max-w-xl md:max-w-3xl lg:max-w-5xl  pt-24 h-auto min-h-screen text-white space-y-4">
