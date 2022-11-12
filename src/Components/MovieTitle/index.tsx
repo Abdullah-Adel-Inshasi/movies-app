@@ -10,9 +10,9 @@ const MovieTitle: FC<
 
   return (
     <div>
-      <h1 className="text-5xl mb-4">{title}</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl  mb-4">{title}</h1>
       <div className="flex flex-row justify-between">
-        <div className="flex flex-col text-gray-400 space-y-0 ">
+        <div className="flex flex-col text-gray-400 space-y-0 text-sm md:text-md lg:text-lg xl:text-xl ">
           <h3>Original title: {original_title}</h3>
           <div>
             {year} &bull;{" "}
