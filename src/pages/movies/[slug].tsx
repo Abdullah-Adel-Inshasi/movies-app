@@ -37,9 +37,9 @@ const MovieDetails: NextPage<
   const [showRatingPopUp, setShowRatingPopUp] = useState<boolean>(false);
   const rateMovie = async (rate: number) => {
     const x = rateMovieRequest({ movieId: id.toString(), rate });
-    x.catch(console.error)
-      .finally(() => setShowRatingPopUp(false))
-      .then(() => alert(`you rated ${title} ${rate}/10`));
+    x.then(() => alert(`you rated ${title} ${rate}/10`))
+      .catch(console.error)
+      .finally(() => setShowRatingPopUp(false));
   };
   return (
     <>
