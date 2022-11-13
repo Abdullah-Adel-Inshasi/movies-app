@@ -3,6 +3,7 @@ import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextPageWithLayout } from "./_app";
+import Link from "next/link";
 
 const NotFound: NextPageWithLayout = () => {
   const { t } = useTranslation("common");
@@ -16,16 +17,20 @@ const NotFound: NextPageWithLayout = () => {
       <div className="flex-1 bg-404-red" />
       <div className="flex-1 bg-404-blue" />
       <div className="flex-3 whitespace-nowrap w-full absolute text-center self-center ">
-        <p className="bg-black text-white  text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl p-5 tracking-normal selection:tracking-widest selection:bg-white selection:text-black selection:space-x-3">
+        <p className="bg-black text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl p-5 tracking-normal selection:tracking-widest selection:bg-white selection:text-black selection:space-x-3">
           {t("404")}
         </p>
+
+        <Link href="/home">
+          <a className="bg-black text-white px-4 py-2 font-semibold hover:border hover:border-transparent ">
+            Click here to go home
+          </a>
+        </Link>
       </div>
     </div>
   );
 };
-NotFound.getLayout = (page) => {
-  return <>{page}</>;
-};
+
 export default NotFound;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
