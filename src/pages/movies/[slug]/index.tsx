@@ -16,9 +16,14 @@ import {
   BookmarkButton,
 } from "@Components";
 import RateStars from "~/src/Components/RateStars";
+import getMovieCredits from "~/lib/api/requests/movieCredits";
+import IMovieCredits from "~/lib/api/types/IMovieCredits";
 
 const MovieDetails: NextPage<
-  IMovieDetails & { youtubeKey: string | undefined }
+  IMovieDetails & {
+    youtubeKey: string | undefined;
+    cast: IMovieCredits["cast"];
+  }
 > = ({
   release_date,
   title,
@@ -33,7 +38,9 @@ const MovieDetails: NextPage<
   id,
   production_countries,
   production_companies,
+  cast,
 }) => {
+  console.log(cast);
   const [showRatingPopUp, setShowRatingPopUp] = useState<boolean>(false);
   const rateMovie = async (rate: number) => {
     const x = rateMovieRequest({ movieId: id.toString(), rate });
@@ -66,7 +73,7 @@ const MovieDetails: NextPage<
             <div className="col-span-12 order-1 lg:col-span-9 lg:order-none space-y-3">
               <p>{overview}</p>
               <hr />
-              <p className="text-lg leading-none">
+              <p className="text-lg ">
                 <span className="font-bold ">Produced by </span>
                 <Link href="#">
                   <a className="text-blue-600 hover:text-blue-200 font-semibold ">
@@ -78,8 +85,29 @@ const MovieDetails: NextPage<
                 </span>
               </p>
               <hr />
+              <div className="text-lg ">
+                <span className="font-bold ">Actors: </span>
+                <ul>
+                  {cast.slice(0, 4).map((member) => (
+                    <li key={member.cast_id}>
+                      {member.name} as {member.character}
+                    </li>
+                  ))}
+                  <Link
+                    href={`/movies/${title
+                      .toLowerCase()
+                      .replaceAll(" ", "_")}/credits?id=${id}`}
+                  >
+                    <a>
+                      <li className="text-blue-600 hover:text-blue-200 font-semibold ">
+                        View all...
+                      </li>
+                    </a>
+                  </Link>
+                </ul>
+              </div>
             </div>
-            <div className="col-span-3  ">
+            <div className="col-span-3">
               <BookmarkButton title={title} poster_path={poster_path} id={id} />
             </div>
           </div>
@@ -95,8 +123,14 @@ export const getServerSideProps: GetServerSideProps<
   IMovieDetails & { youtubeKey: string | undefined },
   { slug: string }
 > = async ({ query, locale }) => {
+  if (!query.id) {
+    return {
+      notFound: true,
+    };
+  }
   const details = await getMovieDetails(query.id as string);
   const videos = await getMovieVideos(details.id);
+  const { cast } = await getMovieCredits(query.id as string);
   const youtubeKey = videos.results.find(
     (video) => video.site === "YouTube"
   )?.key;
@@ -105,6 +139,7 @@ export const getServerSideProps: GetServerSideProps<
       ...(await serverSideTranslations(locale!, ["common"])),
       ...details,
       youtubeKey,
+      cast,
     },
   };
 };
