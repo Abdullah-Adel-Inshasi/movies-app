@@ -17,7 +17,7 @@ const Header: FC = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", (e) => {
-      if (window.scrollY < 10) {
+      if (window.scrollY < 100) {
         setShouldHeaderBeBlack(false);
       } else {
         setShouldHeaderBeBlack(true);
