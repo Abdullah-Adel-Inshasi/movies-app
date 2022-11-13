@@ -14,7 +14,7 @@ const RateStars = ({ rateMovie }: { rateMovie: (rate: number) => void }) => {
       <div className="text-white">Rate: {rate ?? 0}/10</div>
       <div className="flex flex-row">
         {stars.map((star) => (
-          <div
+          <button
             onMouseEnter={() => {
               setRate(star);
             }}
@@ -24,7 +24,7 @@ const RateStars = ({ rateMovie }: { rateMovie: (rate: number) => void }) => {
             <StarIcon
               className={`${rate && rate >= star ? " fill-404-yellow  " : ""}`}
             />
-          </div>
+          </button>
         ))}
       </div>
     </div>
