@@ -7,6 +7,7 @@ export { default as LockIcon } from "./LockIcon";
 export { default as StarIcon } from "./star";
 export { default as MoneyIcon } from "./money";
 export { default as PlusIcon } from "./PlusIcon";
+export { default as LoadingIcon } from "./LoadingIcon";
 
 // bookmark icons
 // export {default as } from ''
