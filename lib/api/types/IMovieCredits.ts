@@ -4,7 +4,7 @@ interface IMovieCredits {
   crew: CrewMember[];
 }
 
-interface Member {
+export interface Member {
   adult: boolean;
   gender: 1 | 2 | undefined;
   id: number;
@@ -14,13 +14,13 @@ interface Member {
   popularity: string;
   profile_path: string;
 }
-type CrewMember = Member & {
+export type CrewMember = Member & {
   credit_id: string;
   department: string;
   job: string;
 };
 
-type CastMember = Member & {
+export type CastMember = Member & {
   cast_id: number;
   character: string;
   credit_id: string;
