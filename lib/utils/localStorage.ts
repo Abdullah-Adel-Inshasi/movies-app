@@ -36,7 +36,6 @@ export const removeFromFavorites = (id: number): void => {
     }
     const movies: FavoriteMovieType[] = JSON.parse(storage);
     const updatedMovies = movies.filter((movie) => movie.id !== id);
-    console.log(updatedMovies);
     localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
   } catch (error) {}
 };
