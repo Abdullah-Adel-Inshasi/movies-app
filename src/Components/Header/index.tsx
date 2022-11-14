@@ -10,8 +10,15 @@ const Header: FC = () => {
   const [shouldExpandMenu, setShouldExpandMenu] = useState<boolean>(false);
   const [shouldHeaderBeBlack, setShouldHeaderBeBlack] =
     useState<boolean>(false);
-  const tabs: string[] = useMemo(
-    () => ["home", "series", "films", "latest", "myList", "browseByLanguage"],
+  const tabs: Record<string, string> = useMemo(
+    () => ({
+      home: "home",
+      series: "series",
+      films: "films",
+      latest: "latests",
+      myList: "bookmarks",
+      browseByLanguage: "languages",
+    }),
     []
   );
 
@@ -27,12 +34,14 @@ const Header: FC = () => {
 
   const router = useRouter();
   useEffect(() => {
-    if (tabs.filter((tab) => router.asPath.includes(tab)).length) {
+    if (Object.keys(tabs).filter((tab) => router.asPath.includes(tab)).length) {
       setShouldShowOptions(true);
     }
   }, [router, tabs]);
   const getCurrentTab = useMemo(() => {
-    const currentTab = tabs.filter((tab) => router.asPath.includes(tab))[0];
+    const currentTab = Object.keys(tabs).filter((tab) =>
+      router.asPath.includes(tab)
+    )[0];
     const tabName = currentTab;
     return tabName;
   }, [router.asPath, tabs]);
@@ -51,8 +60,8 @@ const Header: FC = () => {
       {shouldShowOptions && (
         <nav className="ml-4 w-full flex sm:justify-between justify-end ">
           <ul className=" text-white flex  gap-3 ">
-            {tabs.map((tab) => (
-              <Link key={tab} href={tab}>
+            {Object.keys(tabs).map((tab) => (
+              <Link key={tab} href={tabs[tab]}>
                 <a
                   className={`whitespace-nowrap hidden sm:block ${
                     getCurrentTab !== tab
@@ -121,9 +130,9 @@ const Header: FC = () => {
       >
         <h3 className="text-4xl pb-4 invert">Explore Categories</h3>
         <ul className="space-y-2">
-          {tabs.map((tab) => (
+          {Object.keys(tabs).map((tab) => (
             <li key={tab}>
-              <Link href={tab}>
+              <Link href={tabs[tab]}>
                 <a className="text-xl pl-4 invert">-{t(tab)}</a>
               </Link>
             </li>
