@@ -3,25 +3,24 @@ import React, { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
-  getMovieDetails,
-  getMovieVideos,
-  rateMovie as rateMovieRequest,
-} from "@API/requests";
-import { IMovieDetails } from "@API/types";
-import {
   MovieInformation,
   MoviePictures,
   MovieTitle,
   GenreChips,
   BookmarkButton,
+  RateStars,
 } from "@Components";
-import RateStars from "~/src/Components/RateStars";
-import getMovieCredits from "~/lib/api/requests/movieCredits";
-import IMovieCredits from "~/lib/api/types/IMovieCredits";
+import {
+  getMovieDetails,
+  getMovieVideos,
+  rateMovie as rateMovieRequest,
+  getMovieCredits,
+} from "@API/requests";
+import { IMovieDetails, IMovieCredits } from "@API/types";
 
 const MovieDetails: NextPage<
   IMovieDetails & {
-    youtubeKey: string | undefined;
+    youtubeKey: string | null;
     cast: IMovieCredits["cast"];
   }
 > = ({
@@ -40,7 +39,6 @@ const MovieDetails: NextPage<
   production_companies,
   cast,
 }) => {
-  console.log(cast);
   const [showRatingPopUp, setShowRatingPopUp] = useState<boolean>(false);
   const rateMovie = async (rate: number) => {
     const x = rateMovieRequest({ movieId: id.toString(), rate });
@@ -56,7 +54,7 @@ const MovieDetails: NextPage<
         </div>
       )}
       <div className=" bg-background flex flex-col items-center">
-        <div className="max-w-xl md:max-w-3xl lg:max-w-5xl  pt-24 h-auto min-h-screen text-white space-y-4">
+        <div className="max-w-xl md:max-w-3xl lg:max-w-5xl  pt-24  min-h-screen text-white space-y-4">
           <div className="flex flex-col items-start md:items-end md:justify-between md:flex-row  ">
             <MovieTitle {...{ release_date, original_title, runtime, title }} />
             <MovieInformation
@@ -65,25 +63,29 @@ const MovieDetails: NextPage<
           </div>
           <MoviePictures
             poster_path={poster_path}
-            youtubeKey={youtubeKey!}
+            youtubeKey={youtubeKey ?? ""}
             title={title}
           />
           <GenreChips genres={genres} />
           <div className="grid grid-cols-12 w-full lg:space-x-20 scroll-auto ">
             <div className="col-span-12 order-1 lg:col-span-9 lg:order-none space-y-3">
               <p>{overview}</p>
-              <hr />
-              <p className="text-lg ">
-                <span className="font-bold ">Produced by </span>
-                <Link href="#">
-                  <a className="text-blue-600 hover:text-blue-200 font-semibold ">
-                    {production_companies[0].name}{" "}
-                  </a>
-                </Link>
-                <span className="font-bold">
-                  in {production_countries[0].name}{" "}
-                </span>
-              </p>
+              {!!production_countries.length && (
+                <>
+                  <hr />
+                  <p className="text-lg ">
+                    <span className="font-bold ">Produced by </span>
+                    <Link href="#">
+                      <a className="text-blue-600 hover:text-blue-200 font-semibold ">
+                        {production_companies[0].name}{" "}
+                      </a>
+                    </Link>
+                    <span className="font-bold">
+                      in {production_countries[0].name}{" "}
+                    </span>
+                  </p>
+                </>
+              )}
               <hr />
               <div className="text-lg ">
                 <span className="font-bold ">Actors: </span>
@@ -129,11 +131,11 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
   const details = await getMovieDetails(query.id as string);
+
   const videos = await getMovieVideos(details.id);
   const { cast } = await getMovieCredits(query.id as string);
-  const youtubeKey = videos.results.find(
-    (video) => video.site === "YouTube"
-  )?.key;
+  const youtubeKey =
+    videos.results.find((video) => video.site === "YouTube")?.key ?? "";
   return {
     props: {
       ...(await serverSideTranslations(locale!, ["common"])),
