@@ -10,4 +10,5 @@ export { default as MovieTitle } from "./MovieTitle";
 export { default as BookmarkButton } from "./BookmarkButton";
 export { default as AddToBookmark } from "./BookmarkButton/BookmarkButtons/AddToBookmark";
 export { default as RemoveFromBookmark } from "./BookmarkButton/BookmarkButtons/RemoveFromBookmark";
+export { default as RateStars } from "./RateStars/index";
 // export {default as } from ''
