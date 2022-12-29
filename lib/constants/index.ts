@@ -22,4 +22,8 @@ const GENRES: Record<number, string> = {
 
 const MINUTES_PER_HOUR = 60;
 
-export { GENRES, MINUTES_PER_HOUR };
+const LOCAL_STORAGE = {
+  favoriteMovies: "favoriteMovies",
+};
+
+export { GENRES, MINUTES_PER_HOUR, LOCAL_STORAGE };
