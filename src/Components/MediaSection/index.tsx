@@ -12,7 +12,7 @@ const MediaSection: FC<{
       <Title title={title} />
       <div className="grid grid-cols-12 gap-3 m-5">
         {movies.map((movie) => (
-          <MoviePoster movie={movie} key={movie.backdrop_path} />
+          <MoviePoster movie={movie} key={movie.id} />
         ))}
       </div>
     </div>
