@@ -14,7 +14,7 @@ const Header: FC = () => {
     () => ({
       home: "home",
       series: "series",
-      films: "films",
+      movies: "movies",
       latest: "latests",
       myList: "bookmarks",
       browseByLanguage: "languages",
@@ -34,7 +34,9 @@ const Header: FC = () => {
 
   const router = useRouter();
   useEffect(() => {
-    if (Object.keys(tabs).filter((tab) => router.asPath.includes(tab)).length) {
+    if (
+      Object.values(tabs).filter((tab) => router.asPath.includes(tab)).length
+    ) {
       setShouldShowOptions(true);
     }
   }, [router, tabs]);
@@ -61,7 +63,7 @@ const Header: FC = () => {
         <nav className="ml-4 w-full flex sm:justify-between justify-end ">
           <ul className=" text-white flex  gap-3 ">
             {Object.keys(tabs).map((tab) => (
-              <Link key={tab} href={tabs[tab]}>
+              <Link key={tab} href={"/" + tabs[tab]} legacyBehavior>
                 <a
                   className={`whitespace-nowrap hidden sm:block ${
                     getCurrentTab !== tab
