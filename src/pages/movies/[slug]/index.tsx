@@ -16,7 +16,6 @@ import {
   rateMovie as rateMovieRequest,
   getMovieCredits,
 } from "@API/requests";
-import { IMovieDetails, IMovieCredits } from "@API/types";
 
 const MovieDetails: NextPage<
   IMovieDetails & {
@@ -48,13 +47,13 @@ const MovieDetails: NextPage<
   };
   return (
     <>
-      {showRatingPopUp && (
+      {showRatingPopUp ? (
         <div className="fixed h-screen w-screen bg-black opacity-75 flex justify-center items-center z-10 ">
           <RateStars rateMovie={rateMovie} />
         </div>
-      )}
-      <div className=" bg-background flex flex-col items-center">
-        <div className="max-w-xl md:max-w-3xl lg:max-w-5xl  pt-24  min-h-screen text-white space-y-4">
+      ) : null}
+      <div className=" flex flex-col items-center">
+        <div className="pt-24 max-w-xl md:max-w-3xl lg:max-w-5xl   min-h-screen text-white space-y-4">
           <div className="flex flex-col items-start md:items-end md:justify-between md:flex-row  ">
             <MovieTitle {...{ release_date, original_title, runtime, title }} />
             <MovieInformation
@@ -70,7 +69,7 @@ const MovieDetails: NextPage<
           <div className="grid grid-cols-12 w-full lg:space-x-20 scroll-auto ">
             <div className="col-span-12 order-1 lg:col-span-9 lg:order-none space-y-3">
               <p>{overview}</p>
-              {!!production_countries.length && (
+              {!!production_countries.length && !!production_companies.length && (
                 <>
                   <hr />
                   <p className="text-lg ">
