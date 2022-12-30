@@ -1,4 +1,4 @@
-export interface IMovie {
+interface IMovie {
   genres: string[];
   poster_path: string | null;
   adult: boolean;
@@ -21,5 +21,3 @@ interface IPopularMoviesResponse {
   total_pages: number;
   results: IMovie[];
 }
-
-export default IPopularMoviesResponse;

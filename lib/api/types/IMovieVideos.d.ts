@@ -14,4 +14,3 @@ interface IMovieVideos {
   }[];
 }
 
-export default IMovieVideos;
