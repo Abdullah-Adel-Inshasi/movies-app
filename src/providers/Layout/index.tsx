@@ -5,7 +5,7 @@ const LayoutProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <div className="bg-background min-h-screen ">{children}</div>
     </>
   );
 };
