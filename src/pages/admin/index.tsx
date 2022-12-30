@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { NextPageWithLayout } from "../_app";
 import Image from "next/image";
-import { useContext } from "react";
-import { userContext } from "~/src/providers/UserProvider";
 const Admin: NextPageWithLayout = () => {
-  const { user, setUser } = useContext(userContext);
-
   const [image, setImage] = useState<string | undefined>(undefined);
   const onImageChosen: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const reader = new FileReader();
@@ -53,13 +49,6 @@ const Admin: NextPageWithLayout = () => {
           </div>
         </form>
       </div>
-      <button
-        onClick={() => {
-          setUser(null);
-        }}
-      >
-        update user
-      </button>
     </>
   );
 };
