@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import IUser from "../@types/IUser";
 import UserCard from "../Components/UserCard";
 
 const Home: NextPage<{ users: IUser[] }> = ({ users }) => {

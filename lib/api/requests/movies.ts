@@ -1,5 +1,4 @@
 import axiosInstance from "~/lib/utils/axoisInstance";
-import IPopularMoviesResponse from "../types/IPopularMoviesResponse";
 import { GENRES } from "~/lib/constants";
 const getPopularMovies = async (page = 1) => {
   const { data } = await axiosInstance.get<IPopularMoviesResponse>(

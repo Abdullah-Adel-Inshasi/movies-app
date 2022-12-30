@@ -1,8 +1,5 @@
 import { GENRES } from "~/lib/constants";
 import axiosInstance from "~/lib/utils/axoisInstance";
-import IPopularMoviesResponse, {
-  IMovie,
-} from "../types/IPopularMoviesResponse";
 
 const searchMovieByName = async (query: string) => {
   const { data } = await axiosInstance.get("/search/movie", {
