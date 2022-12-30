@@ -1,13 +1,11 @@
 import { GetServerSideProps } from "next";
 import React from "react";
 import getMovieCredits from "~/lib/api/requests/movieCredits";
-import IMovieCredits, { CrewMember } from "~/lib/api/types/IMovieCredits";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import PeopleGrid from "~/src/Components/PeopleGrid";
 
 const MovieCredits = ({ cast, crew }: Pick<IMovieCredits, "cast" | "crew">) => {
-  console.log(cast[20]);
   const { query } = useRouter();
   const movieName = `${query.slug}`.replaceAll("_", " ");
   return (
