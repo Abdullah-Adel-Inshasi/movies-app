@@ -14,7 +14,7 @@ const HeroImage: FC<{
 
   return (
     <div
-      className="h-[30vh] sm:h-[60vh] bg-center md:h-[80vh] bg-gradient-to-t to-rose-500 w-full bg-cover  hover:duration-150 transition-opacity relative overflow-hidden bg-fixed"
+      className="h-[90vh] sm:h-[60vh] bg-center md:h-[80vh] bg-gradient-to-t to-rose-500 w-full bg-cover  hover:duration-150 transition-opacity relative overflow-hidden bg-fixed"
       style={{
         backgroundImage: `url(${getImageLink(image!)})`,
       }}
@@ -23,7 +23,7 @@ const HeroImage: FC<{
         <h3 className="bg-customGray  text-2xl font-thin text-white inline-block shrink-0 mb-3 indent-10 ">
           {title}
         </h3>
-        <h3 className=" max-w-md bg-neutral-500 text-white bg-opacity-90 mb-9 pl-4">
+        <h3 className="hidden md:block max-w-md bg-neutral-500 text-white bg-opacity-90 mb-9 pl-4">
           {description}
         </h3>
         <div className="flex gap-4 relative left-10 ">
