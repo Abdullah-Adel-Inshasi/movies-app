@@ -2,7 +2,6 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { PlayIcon } from "@Icons";
-import { IMovie } from "@API/types/IPopularMoviesResponse";
 const MoviePoster = ({ movie }: { movie: IMovie }) => {
   return (
     <div className="aspect-[2/3] col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 relative group mb-4 object-cover ">
