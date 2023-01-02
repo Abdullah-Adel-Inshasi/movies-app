@@ -1,11 +1,9 @@
 import React from "react";
 import { LoadingIcon } from "~/src/icons";
-import Title from "../Title";
 
-const LoadingMediaSection = ({ searchQuery }: { searchQuery: string }) => {
+const LoadingMediaSection = () => {
   return (
     <div className="py-8 w-full  ">
-      <Title title={`Loading results for ${searchQuery}`} />
       <div className="grid grid-cols-12 gap-3 m-5">
         {[1, 2, 3, 4, 5, 6].map((entry) => (
           <div
