@@ -1,19 +1,22 @@
 import Link from "next/link";
 import React, { FC } from "react";
 
-const Title: FC<{ title: string }> = ({ title }) => {
+const Title = ({ children }: { children: any }) => {
   const showMoreLikeThis = () => {};
   return (
     <div className="inline-block ml-[3vw]">
       <Link
-        href={`/categories/${title.toLowerCase().trim().replaceAll(" ", "_")}`}
+        href={`/categories/${children
+          .toLowerCase()
+          .trim()
+          .replaceAll(" ", "_")}`}
       >
         <a>
           <button
             onClick={showMoreLikeThis}
             className="text-white  font-bold flex items-baseline group"
           >
-            <p className="text-2xl">{title}</p>
+            <p className="text-2xl">{children}</p>
             <div className="transition-[margin] flex items-center duration-700 relative   group-hover:ml-4">
               <p className="transition-[opacity] text-[#54b9c5] duration-700 ease-in opacity-0 group-hover:opacity-100  group-hover:duration-150">
                 Explore All
