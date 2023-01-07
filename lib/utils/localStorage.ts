@@ -1,4 +1,3 @@
-import { IMovie } from "../api/types/IPopularMoviesResponse";
 import { LOCAL_STORAGE } from "../constants";
 
 export const addToFavorites = (movie: FavoriteMovieType) => {

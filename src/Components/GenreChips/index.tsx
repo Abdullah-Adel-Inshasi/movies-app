@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { IMovieDetails } from "@API/types";
 import Chip from "../Chip";
 
 const GenreChips: FC<Pick<IMovieDetails, "genres">> = ({ genres }) => {

@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { getImageLink, getYoutubeLink } from "~/lib/utils/helpers";
 import { PlayIcon } from "@Icons";
 import Image from "next/image";
-import { IMovieDetails } from "~/lib/api/types";
 const MoviePictures: FC<
   { youtubeKey: string } & Pick<IMovieDetails, "poster_path" | "title">
 > = ({ poster_path, title, youtubeKey }) => {

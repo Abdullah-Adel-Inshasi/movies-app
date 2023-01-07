@@ -12,4 +12,6 @@ export { default as AddToBookmark } from "./BookmarkButton/BookmarkButtons/AddTo
 export { default as RemoveFromBookmark } from "./BookmarkButton/BookmarkButtons/RemoveFromBookmark";
 export { default as RateStars } from "./RateStars/index";
 export { default as LoadingMediaSection } from "./MediaSection/Loading";
+export { default as MoviePoster } from "./MediaSection/MoviePoster";
+export { default as Title } from "./MediaSection/Title";
 // export {default as } from ''

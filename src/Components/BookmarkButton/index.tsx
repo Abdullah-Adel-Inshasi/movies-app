@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { IMovieDetails } from "~/lib/api/types";
 import {
   addToFavorites,
   isInFavorites,

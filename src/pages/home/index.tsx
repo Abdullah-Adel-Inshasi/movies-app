@@ -1,62 +1,108 @@
-import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { getPopularMovies, searchMoviesByName } from "@API/requests";
-import { HeroImage, MediaSection, LoadingMediaSection } from "@Components";
+import { dehydrate, QueryClient, useQuery } from "react-query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getPopularMovies, searchMoviesByName } from "@API/requests";
+import {
+  MoviePoster,
+  HeroImage,
+  LoadingMediaSection,
+  Title,
+} from "@Components";
 import useDebounce from "~/src/hooks/useDebounce";
 
-const Home = ({ movies }: { movies: IPopularMoviesResponse["results"] }) => {
-  const [results, setResults] = useState<IMovie[]>(movies);
-  const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const debouncedSearchTerm = useDebounce<string | null>(searchTerm, 1000);
-
+const Home = ({ movies }: { movies: IPopularMoviesResponse }) => {
   const router = useRouter();
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { search } = router.query;
+  const [searchTerm, setSearchTerm] = useState<string>(
+    search?.toString() ?? ""
+  );
+  const debouncedSearchTerm = useDebounce<string | null>(searchTerm, 1000);
+  const {
+    data: searchData,
+    isLoading,
+    isError,
+  } = useQuery<IPopularMoviesResponse>({
+    queryKey: ["movies", debouncedSearchTerm],
+    queryFn: ({ queryKey }) => {
+      const searchQuery = queryKey[1] as string;
+      if (searchQuery) {
+        return searchMoviesByName(queryKey[1] as string);
+      } else {
+        return getPopularMovies();
+      }
+    },
+    initialData: movies,
+  });
 
   useEffect(() => {
     if (debouncedSearchTerm) {
-      setIsSearching(true);
-      searchMoviesByName(debouncedSearchTerm)
-        .then((data) => {
-          if (data.results.length) {
-            setResults(data.results);
-            router.replace(`?search=${debouncedSearchTerm}`, undefined, {
-              shallow: true,
-            });
-          }
-        })
-        .catch((err) => {})
-        .finally(() => setIsSearching(false));
+      router.push(`?search=${debouncedSearchTerm}`, undefined, {
+        shallow: true,
+      });
     } else {
-      setResults(movies);
+      router.push("", undefined, { shallow: true });
     }
-  }, [debouncedSearchTerm, movies]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = searchTerm;
+    }
+  }, []);
+
+  if (isError || !searchData) {
+    return <>Error happened</>;
+  }
+
   return (
     <>
       <HeroImage
-        image={results[0].backdrop_path}
-        title={results[0].title}
-        description={results[0].overview}
-        genres={results[0].genres}
+        image={movies.results[0].backdrop_path}
+        title={movies.results[0].title}
+        description={movies.results[0].overview}
+        genres={movies.results[0].genres}
       />
-      <input
-        placeholder="Search movies"
-        className="border border-blue-400 focus:outline-red-500"
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      {isSearching ? (
+      <form>
+        <input
+          placeholder="Search movies"
+          className="border border-blue-400 focus:outline-red-500"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          ref={searchInputRef}
+        />
+      </form>
+      {isLoading ? (
         <LoadingMediaSection searchQuery={debouncedSearchTerm ?? ""} />
       ) : (
-        <MediaSection
-          title={
-            search || debouncedSearchTerm
-              ? `Search for "${search ?? debouncedSearchTerm}"`
-              : "Popular Movies"
-          }
-          movies={results}
-        />
+        <div>
+          {(() => {
+            if (!searchData.results.length) {
+              return (
+                <p className="text-2xl font-bold text-white">
+                  No results for {debouncedSearchTerm}
+                </p>
+              );
+            }
+            return (
+              <>
+                <Title>
+                  {debouncedSearchTerm
+                    ? `Search for "${debouncedSearchTerm}"`
+                    : "Popular Movies"}
+                </Title>
+
+                <div className="grid grid-cols-12 gap-3 m-5">
+                  {searchData.results.map((movie) => (
+                    <MoviePoster movie={movie} key={movie.id} />
+                  ))}
+                </div>
+              </>
+            );
+          })()}
+        </div>
       )}
     </>
   );
@@ -64,26 +110,28 @@ const Home = ({ movies }: { movies: IPopularMoviesResponse["results"] }) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  locale,
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps<{
+  movies: IPopularMoviesResponse;
+}> = async ({ locale, query }) => {
+  const queryClient = new QueryClient();
+
   if (query.search) {
-    const { results: movies } = await searchMoviesByName(
-      query.search.toString()
+    await queryClient.prefetchQuery<IPopularMoviesResponse>(
+      ["movies", query.search],
+      () => searchMoviesByName(query.search!.toString())
     );
-    return {
-      props: {
-        ...(await serverSideTranslations(locale!, ["common"])),
-        movies: movies,
-      },
-    };
+  } else {
+    await queryClient.prefetchQuery<IPopularMoviesResponse>(
+      ["movies", ""],
+      () => getPopularMovies()
+    );
   }
-  const { results: movies } = await getPopularMovies();
+
   return {
     props: {
       ...(await serverSideTranslations(locale!, ["common"])),
-      movies: movies,
+      movies: dehydrate(queryClient).queries[0].state
+        .data as IPopularMoviesResponse,
     },
   };
 };

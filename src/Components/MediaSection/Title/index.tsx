@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React, { FC } from "react";
 
 const Title = ({ children }: { children: any }) => {
   const showMoreLikeThis = () => {};

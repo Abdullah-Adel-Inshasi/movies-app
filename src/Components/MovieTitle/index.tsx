@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { IMovieDetails } from "@API/types";
 import { minutesToHoursAndMinutes } from "~/lib/utils/helpers";
 
 const MovieTitle: FC<

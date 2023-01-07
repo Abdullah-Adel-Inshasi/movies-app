@@ -12,12 +12,12 @@ const Header: FC = () => {
     useState<boolean>(false);
   const tabs: Record<string, string> = useMemo(
     () => ({
-      home: "home",
-      series: "series",
-      movies: "movies",
-      latest: "latests",
-      myList: "bookmarks",
-      browseByLanguage: "languages",
+      home: "/home",
+      series: "/series",
+      movies: "/movies",
+      latest: "/latests",
+      myList: "/bookmarks",
+      browseByLanguage: "/languages",
     }),
     []
   );
@@ -50,7 +50,7 @@ const Header: FC = () => {
 
   return (
     <header
-      className={`z-10 fixed transition-all duration-500 ease-in-out top-0 w-full flex px-12 pt-8 pb-4 bg-gradient-to-b from-headerBackground to-transparent justify-between sm:justify-start ${
+      className={`z-50 fixed transition-all duration-500 ease-in-out top-0 w-full flex px-12 pt-8 pb-4 bg-gradient-to-b from-headerBackground to-transparent justify-between sm:justify-start ${
         shouldHeaderBeBlack ? "bg-headerBackground" : ""
       }`}
     >
@@ -126,7 +126,7 @@ const Header: FC = () => {
       )}
 
       <div
-        className={` fixed -inset-y-0 -inset-x-0 bg-black bg-opacity-50 z-10 block sm:hidden pt-24 transition-all duration-150 ${
+        className={` fixed -inset-y-0 -inset-x-0 bg-black  z-10 block sm:hidden pt-24 transition-all duration-150 ${
           shouldExpandMenu ? "w-full h-full" : "w-0  hidden"
         }`}
       >
