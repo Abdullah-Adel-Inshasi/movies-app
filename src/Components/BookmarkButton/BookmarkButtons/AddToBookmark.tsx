@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { FilledBookmark, HollowBookmark } from "~/src/icons/index";
+import { FilledBookmark, HollowBookmark } from "@Icons";
 
 const AddToBookmark: FC<{ shouldToggleBookmarkIcon: boolean }> = ({
   shouldToggleBookmarkIcon,
