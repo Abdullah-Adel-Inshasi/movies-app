@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-// import { FilledBookmark, FilledRemoveBookmarkIcon } from "~/src/icons";
+import { FilledBookmark, FilledRemoveBookmarkIcon } from "~/src/icons";
 
 const RemoveFromBookmark: FC<{ shouldToggleBookmarkIcon: boolean }> = ({
   shouldToggleBookmarkIcon,
 }) => {
   return (
     <>
-      {/* {shouldToggleBookmarkIcon ? (
-        <span>Bookmarked</span>
+      {shouldToggleBookmarkIcon ? (
+        <FilledRemoveBookmarkIcon />
       ) : (
         <FilledBookmark />
-      )} */}
+      )}
       <p>
         {shouldToggleBookmarkIcon
           ? "Remove from favorites"
