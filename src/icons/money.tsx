@@ -8,7 +8,7 @@ const MoneyIcon = ({ color = "currentColor" }: { color?: string }) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke={color}
-      className="w-6 h-6 hover:stroke-white transition-all duration-150"
+      className="w-5 h-5 hover:stroke-white transition-all duration-150"
     >
       <path
         strokeLinecap="round"

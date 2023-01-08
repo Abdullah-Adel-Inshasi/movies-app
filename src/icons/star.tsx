@@ -14,7 +14,7 @@ const Star = ({
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke={color}
-      className={`w-6 h-6 ${className}`}
+      className={`w-5 h-5 ${className}`}
     >
       <path
         strokeLinecap="round"

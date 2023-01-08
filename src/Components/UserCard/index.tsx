@@ -16,6 +16,7 @@ const UserCard: FC<{
 
   useEffect(() => {
     if (user?.image) router.push("home");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   return (
     <div className="flex flex-col items-center ">
